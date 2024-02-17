@@ -7,10 +7,10 @@
    SSH_PORT - порт. Пример: 22
    SSH_USER - имя пользователя. Пример: user
    SSH_KEY - Приватный SSH Key
-   SERVER_PATH_SCRIPTS - путь до скриптов деплоя на сервере. Пример: /home/user/deploy/test-site/
+   SERVER_PATH_SCRIPTS - путь до скриптов деплоя на сервере. Пример: /home/user/deploy/test-site
 3. Заполнить scripts/.env файл по примеру .env.example
 4. Загрузить папку scripts на сервер. ВАЖНО! Не в корень сайта.
-   Пример: /home/user/deploy/test-site/
+   Пример: /home/user/deploy/test-site
 
 ## Как это работает?
 При пуше в ветку "release" (указывается в файле .github/workflows/deploy_site.yml) происходит сборка проекта.
