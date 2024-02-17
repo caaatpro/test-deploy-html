@@ -29,10 +29,14 @@ jobs:
           cp site-* site-latest.tar.gz
 
       - name: Upload
-        run: |
-          TEMP=$(mktemp)
-          echo "${{ secrets.SSH_KEY }}" > $TEMP
-          scp -P ${{ secrets.SSH_PORT }} -o 'StrictHostKeyChecking no' -i $TEMP site-latest.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SERVER_PATH_SCRIPTS }}
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "*.tar.gz"
+          target: ${{ secrets.SERVER_PATH_SCRIPTS }}
 
       - name: Deploy
         uses: appleboy/ssh-action@master
