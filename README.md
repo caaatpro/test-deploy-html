@@ -6,7 +6,7 @@
    SSH_HOST - хост сервера. Пример: 123.123.123.123
    SSH_PORT - порт. Пример: 22
    SSH_USER - имя пользователя. Пример: user
-   SSH_KEY - Публичный SSH Key
+   SSH_KEY - Приватный SSH Key
    SERVER_PATH_SCRIPTS - путь до скриптов деплоя на сервере. Пример: /home/user/deploy/test-site/
 3. Заполнить scripts/.env файл по примеру .env.example
 4. Загрузить папку scripts на сервер. ВАЖНО! Не в корень сайта.
