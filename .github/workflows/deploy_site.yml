@@ -2,7 +2,7 @@ name: Build and Deploy site
 on:
   push:
     branches:
-      - release
+      - master
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       - name: Build
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '21.x'
       - run: npm install
         working-directory: ./
       - run: npm run build
@@ -26,7 +26,6 @@ jobs:
       - name: Pack build
         run: |
           tar -czvf site-${{ steps.date.outputs.date }}.tar.gz -C ./dist/browser .
-          cp site-* site-latest.tar.gz
 
       - name: Upload
         uses: appleboy/scp-action@master
