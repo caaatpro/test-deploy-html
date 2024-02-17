@@ -6,7 +6,7 @@ if [[ -f "$env_file" ]]; then
    source "$env_file"
 else
    echo $(pwd)
-   echo "Файл .env не найден"
+   # echo "Файл .env не найден"
    exit 1
 fi
 
