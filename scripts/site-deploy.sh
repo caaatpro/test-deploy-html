@@ -1,10 +1,11 @@
 #!/bin/bash
 
-env_file=".env"
+env_file="./.env"
 
 if [[ -f "$env_file" ]]; then
    source "$env_file"
 else
+   echo $(pwd)
    echo "Файл .env не найден"
    exit 1
 fi
@@ -15,7 +16,7 @@ temp_build="./temp_build"
 mkdir -p "$temp_build"
 tar -xzf "$archive_file" -C "$temp_build"
 
-temp_old="temp_old"
+temp_old="./temp_old"
 mkdir -p "$temp_old"
 
 exlude_list=$(mktemp)
