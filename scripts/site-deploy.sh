@@ -1,22 +1,23 @@
 #!/bin/bash
 
-env_file="./.env"
+# Сохраняем в переменную BASEDIR путь к каталогу, где находится скрипт
+BASEDIR=$(dirname $(realpath "$0"))
+
+env_file="$BASEDIR/.env"
 
 if [[ -f "$env_file" ]]; then
    source "$env_file"
 else
-   echo $(pwd)
-   # echo "Файл .env не найден"
+   echo "Файл .env не найден"
    exit 1
 fi
 
-last_build=$(ls -lt site-*.tar.gz | head -n 1 | awk '{print $NF}')
-archive_file="$BUILDS_FOLDER/$last_build"
-temp_build="./temp_build"
+archive_file=$(ls -lt $BUILDS_FOLDER/*.tar.gz | head -n 1 | awk '{print $NF}')
+temp_build="$BASEDIR/temp_build"
 mkdir -p "$temp_build"
 tar -xzf "$archive_file" -C "$temp_build"
 
-temp_old="./temp_old"
+temp_old="$BASEDIR/temp_old"
 mkdir -p "$temp_old"
 
 exlude_list=$(mktemp)
@@ -34,3 +35,6 @@ rsync -av "$temp_build"/ "$SITE_FOLDER"/
 rm "$exlude_list"
 rm -rf "$temp_build"
 rm -rf "$temp_old"
+
+# Удаляем лишние билды
+ls -lt ${BUILDS_FOLDER}/*.tar.gz | tail -n +$((NUM_TO_KEEP + 1)) | awk '{print $NF}' | xargs rm -f
